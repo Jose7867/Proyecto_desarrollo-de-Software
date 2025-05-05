@@ -2,31 +2,7 @@ document.getElementById("form-contacto").addEventListener("submit", function (e)
     e.preventDefault();
     alert("Gracias por contactarnos.");
   });
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const recientes = [];
-    const form = document.getElementById("form-registro");
-    const listaRecientes = document.getElementById("lista-recientes");
-  
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-  
-      const nombre = form.nombre.value;
-      const precio = form.precio.value;
-  
-      recientes.unshift({ nombre, precio });
-      if (recientes.length > 5) recientes.pop(); // Limita a 5 elementos
-  
-      listaRecientes.innerHTML = recientes
-        .map(p => `<li>${p.nombre} - S/ ${p.precio}</li>`)
-        .join("");
-  
-      alert("Emprendimiento registrado correctamente.");
-      form.reset();
-    });
-  });
-  
-  
+    
   const contenedorProductos = document.querySelector('.productos');
   
   productos.forEach(producto => {

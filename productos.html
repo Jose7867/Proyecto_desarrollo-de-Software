@@ -185,6 +185,7 @@
       });
   
       btnComprar.addEventListener("click", () => {
+        localStorage.setItem("carrito", JSON.stringify(seleccionados));
         window.location.href = "registro.html";
       });
     });
