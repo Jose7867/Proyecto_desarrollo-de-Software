@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Servicios - Ferre Corp</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .section {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .servicios {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .servicio {
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      padding: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .servicio:hover {
+      transform: scale(1.03);
+    }
+
+    .servicio img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .servicio h3 {
+      color: #007bff;
+      margin: 0.8rem 0 0.3rem 0;
+    }
+
+    .servicio p {
+      margin: 0.3rem 0;
+    }
+
+    footer {
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Ferre Corp</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="registro.html">Registro</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="caja-translucida">
+      <h2>Servicios Ofrecidos</h2>
+      <div class="servicios">
+        <div class="servicio">
+          <img src="img/electrica.jpg" alt="Instalación Eléctrica">
+          <h3>Instalación Eléctrica</h3>
+          <p>Servicios profesionales de instalación eléctrica para hogares y empresas.</p>
+        </div>
+        <div class="servicio">
+          <img src="img/plomeria.png" alt="Plomería">
+          <h3>Reparaciones de Plomería</h3>
+          <p>Solución de fugas, cambio de tuberías y mantenimiento general.</p>
+        </div>
+        <div class="servicio">
+          <img src="img/mantenimiento.jpg" alt="Mantenimiento de Herramientas">
+          <h3>Mantenimiento de Herramientas</h3>
+          <p>Afiliado y reparación de herramientas eléctricas y manuales.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Ferre Corp. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

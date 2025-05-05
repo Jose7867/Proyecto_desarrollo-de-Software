@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contacto - Ferre Corp</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+
+
+    .form-wrapper {
+      max-width: 600px;
+      margin: auto;
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Ferre Corp</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="registro.html">Registro</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="form-wrapper">
+      <h2>Contacto</h2>
+      <p>¿Tienes dudas o sugerencias? Contáctanos a través del siguiente formulario:</p>
+      <form id="form-contacto">
+        <label>Nombre</label>
+        <input type="text" name="nombre" required>
+
+        <label>Correo Electrónico</label>
+        <input type="email" name="correo" required>
+
+        <label>Mensaje</label>
+        <textarea name="mensaje" required></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

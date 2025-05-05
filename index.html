@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ferre Corp</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Ferre Corp</h1>
+      <nav>
+        <ul>
+          <li><a href="registro.html">Registro</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<main class="section">
+    <div class="caja-translucida">
+      <h2>Bienvenido a Ferre Corp</h2>
+      <p>Somos tu ferretería de confianza, ofreciendo productos y servicios de calidad para tus proyectos de construcción, remodelación o mantenimiento.</p>
+      <img src="img/Ferreteria.jpg" alt="Ferreteria" style="max-width: 100%; border-radius: 15px; margin-top: 1rem;">
+    </div>
+</main>
+
+  <footer>
+    <p>&copy; 2025 FerreCorp. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // Confirmaciones de formularios
+    document.getElementById("form-contacto").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Gracias por contactarnos.");
+    });
+
+    document.getElementById("form-registro").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Emprendimiento registrado correctamente.");
+    });
+  </script>
+</body>
+</html>

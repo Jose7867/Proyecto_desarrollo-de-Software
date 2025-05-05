@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Productos - Ferre Corp</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .section {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .productos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .producto {
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      padding: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .producto:hover {
+      transform: scale(1.03);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .producto h3 {
+      color: #007bff;
+      margin: 0.8rem 0 0.3rem 0;
+    }
+
+    .producto p {
+      margin: 0.3rem 0;
+    }
+
+    .producto button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    .producto button:hover {
+      background-color: #0056b3;
+    }
+
+    #seleccion-reciente {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Ferre Corp</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="registro.html">Registro</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="caja-translucida">
+      <h2 style="color: #007bff;">Productos Disponibles</h2>
+
+      <div class="productos">
+        <div class="producto" data-nombre="Bota Liviana" data-precio="25.00">
+          <img src="img/bota.jpg" alt="Bota">
+          <h3>Bota Liviana</h3>
+          <p>Flexible y versátil para todo tipo de superficies.</p>
+          <p><strong>S/ 25.00</strong></p>
+          <button class="seleccionar-btn">Seleccionar</button>
+        </div>
+
+        <div class="producto" data-nombre="Casco para ingeniero" data-precio="35.00">
+          <img src="img/casco.jpg" alt="casco">
+          <h3>Casco para ingeniero</h3>
+          <p>Con rachet flexible.</p>
+          <p><strong>S/ 35.00</strong></p>
+          <button class="seleccionar-btn">Seleccionar</button>
+        </div>
+
+        <div class="producto" data-nombre="Guante Superflex" data-precio="5.00">
+          <img src="img/guante_superflex-Rojo_T-L.jpg" alt="Guante Superflex">
+          <h3>Guante Superflex</h3>
+          <p>Color rojo para múltiples usos.</p>
+          <p><strong>S/ 5.00</strong></p>
+          <button class="seleccionar-btn">Seleccionar</button>
+        </div>
+      </div>
+
+      <h3>Productos recientemente seleccionados</h3>
+      <ul id="seleccion-reciente"></ul>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 EmprendeLocal. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const seleccionados = [];
+      const botones = document.querySelectorAll(".seleccionar-btn");
+      const lista = document.getElementById("seleccion-reciente");
+
+      botones.forEach(boton => {
+        boton.addEventListener("click", () => {
+          const producto = boton.closest(".producto");
+          const nombre = producto.getAttribute("data-nombre");
+          const precio = producto.getAttribute("data-precio");
+
+          seleccionados.unshift({ nombre, precio });
+          if (seleccionados.length > 5) seleccionados.pop();
+
+          lista.innerHTML = seleccionados
+            .map(p => `<li>${p.nombre} - S/ ${p.precio}</li>`)
+            .join("");
+        });
+      });
+    });
+  </script>
+</body>
+</html>
