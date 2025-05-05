@@ -92,9 +92,8 @@
   </header>
 
   <main class="section">
-    <div class="caja-translucida">
-      <h2 style="color: #007bff;">Productos Disponibles</h2>
-
+    
+    <div class="contenedor-productos">
       <div class="productos">
         <div class="producto" data-nombre="Bota Liviana" data-precio="25.00">
           <img src="img/bota.jpg" alt="Bota">
@@ -103,7 +102,7 @@
           <p><strong>S/ 25.00</strong></p>
           <button class="seleccionar-btn">Seleccionar</button>
         </div>
-
+    
         <div class="producto" data-nombre="Casco para ingeniero" data-precio="35.00">
           <img src="img/casco.jpg" alt="casco">
           <h3>Casco para ingeniero</h3>
@@ -111,7 +110,7 @@
           <p><strong>S/ 35.00</strong></p>
           <button class="seleccionar-btn">Seleccionar</button>
         </div>
-
+    
         <div class="producto" data-nombre="Guante Superflex" data-precio="5.00">
           <img src="img/guante_superflex-Rojo_T-L.jpg" alt="Guante Superflex">
           <h3>Guante Superflex</h3>
@@ -120,14 +119,19 @@
           <button class="seleccionar-btn">Seleccionar</button>
         </div>
       </div>
-
-      <h3>Productos recientemente seleccionados</h3>
-      <ul id="seleccion-reciente"></ul>
+    
+      <div class="lateral-reciente">
+        <h3>Seleccionados recientemente</h3>
+        <ul id="seleccion-reciente"></ul>
+        <button id="btn-comprar">Comprar</button>
+      </div>
     </div>
+    
+
   </main>
 
   <footer>
-    <p>&copy; 2025 EmprendeLocal. Todos los derechos reservados.</p>
+    <p>&copy; 2025 Ferre Corp. Todos los derechos reservados.</p>
   </footer>
 
   <script>
@@ -135,22 +139,57 @@
       const seleccionados = [];
       const botones = document.querySelectorAll(".seleccionar-btn");
       const lista = document.getElementById("seleccion-reciente");
-
+      const btnComprar = document.getElementById("btn-comprar");
+  
+      function renderLista() {
+        lista.innerHTML = "";
+        seleccionados.forEach((p, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            ${p.nombre} (x${p.cantidad}) - S/ ${(p.precio * p.cantidad).toFixed(2)}
+            <button class="eliminar-btn" data-index="${index}">X</button>
+          `;
+          lista.appendChild(li);
+        });
+  
+        document.querySelectorAll(".eliminar-btn").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const i = parseInt(e.target.getAttribute("data-index"));
+            seleccionados.splice(i, 1);
+            renderLista();
+          });
+        });
+      }
+  
       botones.forEach(boton => {
         boton.addEventListener("click", () => {
           const producto = boton.closest(".producto");
           const nombre = producto.getAttribute("data-nombre");
-          const precio = producto.getAttribute("data-precio");
-
-          seleccionados.unshift({ nombre, precio });
-          if (seleccionados.length > 5) seleccionados.pop();
-
-          lista.innerHTML = seleccionados
-            .map(p => `<li>${p.nombre} - S/ ${p.precio}</li>`)
-            .join("");
+          const precio = parseFloat(producto.getAttribute("data-precio"));
+  
+          // Si ya existe, aumenta cantidad
+          const existente = seleccionados.find(p => p.nombre === nombre);
+          if (existente) {
+            existente.cantidad++;
+          } else {
+            seleccionados.unshift({ nombre, precio, cantidad: 1 });
+          }
+  
+          // Mantener solo los últimos 5 productos diferentes
+          if (seleccionados.length > 5) {
+            seleccionados.pop();
+          }
+  
+          renderLista();
         });
+      });
+  
+      btnComprar.addEventListener("click", () => {
+        window.location.href = "registro.html";
       });
     });
   </script>
+  
+  
 </body>
 </html>

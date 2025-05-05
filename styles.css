@@ -373,6 +373,72 @@ form button:hover {
   background-color: #0056b3;
 }
 
+/*agegar al lateral*/
+.contenedor-productos {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.productos {
+  flex: 3;
+}
+
+.lateral-reciente {
+  flex: 1;
+  position: sticky;
+  top: 100px; /* ajusta según tu header */
+  background-color: #f8f9fa;
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+#seleccion-reciente li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.eliminar-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.eliminar-btn:hover {
+  background-color: #b52a38;
+}
+
+#btn-comprar {
+  display: block;
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#btn-comprar:hover {
+  background-color: #1e7e34;
+}
+
 
 
 

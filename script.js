@@ -26,24 +26,6 @@ document.getElementById("form-contacto").addEventListener("submit", function (e)
     });
   });
   
-
-
-  
-  const productos = [
-    {
-      nombre: 'Martillo de Acero',
-      descripcion: 'Martillo resistente de acero para trabajos de construcción.',
-      precio: '$15.00',
-      imagen: 'producto1.jpg',
-    },
-    {
-      nombre: 'Destornillador Eléctrico',
-      descripcion: 'Destornillador eléctrico profesional para reparaciones rápidas.',
-      precio: '$45.00',
-      imagen: 'producto2.jpg',
-    },
-    // Añadir más productos
-  ];
   
   const contenedorProductos = document.querySelector('.productos');
   
