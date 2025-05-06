@@ -5,6 +5,7 @@
   <title>Servicios - Ferre Corp</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Estilos generales de la sección */
     .section {
       text-align: center;
       padding: 2rem;
@@ -48,6 +49,67 @@
       margin: 0.3rem 0;
     }
 
+    .servicio button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .servicio button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Estilos del modal (pantalla emergente) */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 1000;
+    }
+
+    #modal-content {
+      background: white;
+      margin: 10% auto;
+      padding: 2rem;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+      text-align: left;
+    }
+
+    #modal-content h2 {
+      margin-top: 0;
+    }
+
+    #modal-content a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    #modal-content button.close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
     footer {
       margin-top: 3rem;
     }
@@ -74,27 +136,80 @@
     <div class="caja-translucida">
       <h2>Servicios Ofrecidos</h2>
       <div class="servicios">
+        <!-- Cada tarjeta de servicio con botón "Ver más" -->
         <div class="servicio">
           <img src="img/electrica.jpg" alt="Instalación Eléctrica">
           <h3>Instalación Eléctrica</h3>
           <p>Servicios profesionales de instalación eléctrica para hogares y empresas.</p>
+          <button onclick="mostrarDetalle('Instalación Eléctrica')">Ver más</button>
         </div>
+
         <div class="servicio">
           <img src="img/plomeria.png" alt="Plomería">
           <h3>Reparaciones de Plomería</h3>
           <p>Solución de fugas, cambio de tuberías y mantenimiento general.</p>
+          <button onclick="mostrarDetalle('Reparaciones de Plomería')">Ver más</button>
         </div>
+
         <div class="servicio">
           <img src="img/mantenimiento.jpg" alt="Mantenimiento de Herramientas">
           <h3>Mantenimiento de Herramientas</h3>
-          <p>Afiliado y reparación de herramientas eléctricas y manuales.</p>
+          <p>Afilado y reparación de herramientas eléctricas y manuales.</p>
+          <button onclick="mostrarDetalle('Mantenimiento de Herramientas')">Ver más</button>
+        </div>
+
+        <div class="servicio">
+          <img src="img/delivery.jpg" alt="Delivery de herramientas">
+          <h3>Delivery de herramientas</h3>
+          <p>Envíos de herramientas para hogares y empresas.</p>
+          <button onclick="mostrarDetalle('Delivery de herramientas')">Ver más</button>
+        </div>
+
+        <div class="servicio">
+          <img src="img/instalacion.jpg" alt="Instalación de productos">
+          <h3>Instalación de productos</h3>
+          <p>Instalación de puertas, ventanas, estanterías y más.</p>
+          <button onclick="mostrarDetalle('Instalación de productos')">Ver más</button>
+        </div>
+
+        <div class="servicio">
+          <img src="img/alquiler.jpg" alt="Alquiler de herramientas o maquinaria">
+          <h3>Alquiler de herramientas o maquinaria</h3>
+          <p>Mezcladoras, escaleras, taladros industriales, etc.</p>
+          <button onclick="mostrarDetalle('Alquiler de herramientas o maquinaria')">Ver más</button>
         </div>
       </div>
     </div>
   </main>
 
+  <!-- Modal: Pantalla emergente para ver detalles del servicio -->
+  <div id="modal">
+    <div id="modal-content">
+      <button class="close" onclick="cerrarModal()">✖</button>
+      <h2 id="titulo-servicio">Detalle del servicio</h2>
+      <p><strong>Horario:</strong> Lunes a Sábado de 8:00 a.m. a 6:00 p.m.</p>
+      <p><strong>Ofrecemos:</strong> Instalaciones eléctricas residenciales, mantenimiento y reparación eléctrica, ampliación de capacidad eléctrica, instalación de sistemas de puesta a tierra, instalación de luminarias y tomacorrientes.</p>
+      <p><strong>Contamos con:</strong> Técnico electricista, Ing. electricista, Ing. electromecánico, técnico en automatización, supervisor de obras eléctricas. Contáctanos para más información.</p>
+      <a href="registro.html">Adquirir Servicio</a>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2025 Ferre Corp. Todos los derechos reservados.</p>
   </footer>
+
+  <!-- Script para controlar la apertura y cierre del modal -->
+  <script>
+    function mostrarDetalle(servicio) {
+      // Cambia el título del modal con el nombre del servicio
+      document.getElementById("titulo-servicio").innerText = "Detalle del servicio: " + servicio;
+      document.getElementById("modal").style.display = "block";
+    }
+
+    function cerrarModal() {
+      // Oculta el modal
+      document.getElementById("modal").style.display = "none";
+    }
+  </script>
 </body>
 </html>
