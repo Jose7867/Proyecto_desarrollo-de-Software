@@ -4,8 +4,19 @@
   <meta charset="UTF-8">
   <title>Servicios - Ferre Corp</title>
   <link rel="stylesheet" href="styles.css">
+
+  <!-- CDN Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- CDN SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <style>
-    /* Estilos generales de la sección */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
     .section {
       text-align: center;
       padding: 2rem;
@@ -63,14 +74,11 @@
       background-color: #0056b3;
     }
 
-    /* Estilos del modal (pantalla emergente) */
     #modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background-color: rgba(0,0,0,0.6);
       z-index: 1000;
     }
@@ -86,20 +94,6 @@
       text-align: left;
     }
 
-    #modal-content h2 {
-      margin-top: 0;
-    }
-
-    #modal-content a {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-
     #modal-content button.close {
       position: absolute;
       top: 10px;
@@ -110,11 +104,41 @@
       cursor: pointer;
     }
 
-    footer {
+    .encuesta {
       margin-top: 3rem;
+      text-align: center;
+    }
+
+    .encuesta select, .encuesta button {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    canvas {
+      margin-top: 2rem;
+      max-width: 600px;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding: 1rem;
+      background-color: #f0f0f0;
+      text-align: center;
+    }
+
+    #proveedores {
+      padding: 3rem 1rem;
+      background-color: #f8f8f8;
+      text-align: center;
+    }
+
+    #proveedores h2 {
+      color: #007bff;
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="container">
@@ -133,99 +157,158 @@
   </header>
 
   <main class="section">
-    <div class="caja-translucida">
-      <h2>Servicios Ofrecidos</h2>
-      <div class="servicios">
-        <!-- Cada tarjeta de servicio con botón "Ver más" -->
-        <div class="servicio">
-          <img src="img/electrica.jpg" alt="Instalación Eléctrica">
-          <h3>Instalación Eléctrica</h3>
-          <p>Servicios profesionales de instalación eléctrica para hogares y empresas.</p>
-          <button onclick="mostrarDetalle('Instalación Eléctrica')">Ver más</button>
-        </div>
+    <h2>Servicios Ofrecidos</h2>
+    <div class="servicios">
+      <!-- Servicio -->
+      <div class="servicio">
+        <img src="img/electrica.jpg" alt="Instalación Eléctrica">
+        <h3>Instalación Eléctrica</h3>
+        <p>Instalaciones eléctricas profesionales.</p>
+        <button onclick="mostrarDetalle('Instalación Eléctrica')">Ver más</button>
+        <button onclick="location.href='#proveedores'">Ver Proveedor</button>
+      </div>
 
-        <div class="servicio">
-          <img src="img/plomeria.png" alt="Plomería">
-          <h3>Reparaciones de Plomería</h3>
-          <p>Solución de fugas, cambio de tuberías y mantenimiento general.</p>
-          <button onclick="mostrarDetalle('Reparaciones de Plomería')">Ver más</button>
-        </div>
+      <div class="servicio">
+        <img src="img/plomeria.png" alt="Plomería">
+        <h3>Reparaciones de Plomería</h3>
+        <p>Fugas, tuberías y mantenimiento general.</p>
+        <button onclick="mostrarDetalle('Reparaciones de Plomería')">Ver más</button>
+        <button onclick="location.href='#proveedores'">Ver Proveedor</button>
+      </div>
 
-        <div class="servicio">
-          <img src="img/mantenimiento.jpg" alt="Mantenimiento de Herramientas">
-          <h3>Mantenimiento de Herramientas</h3>
-          <p>Afilado y reparación de herramientas eléctricas y manuales.</p>
-          <button onclick="mostrarDetalle('Mantenimiento de Herramientas')">Ver más</button>
-        </div>
+      <div class="servicio">
+        <img src="img/mantenimiento.jpg" alt="Herramientas">
+        <h3>Mantenimiento de Herramientas</h3>
+        <p>Afilado y reparación de herramientas.</p>
+        <button onclick="mostrarDetalle('Mantenimiento de Herramientas')">Ver más</button>
+        <button onclick="location.href='#proveedores'">Ver Proveedor</button>
+      </div>
 
-        <div class="servicio">
-          <img src="img/delivery.jpg" alt="Delivery de herramientas">
-          <h3>Delivery de herramientas</h3>
-          <p>Envíos de herramientas para hogares y empresas.</p>
-          <button onclick="mostrarDetalle('Delivery de herramientas')">Ver más</button>
-        </div>
+      <div class="servicio">
+        <img src="img/delivery.jpg" alt="Delivery">
+        <h3>Delivery de herramientas</h3>
+        <p>Envío de herramientas a domicilio.</p>
+        <button onclick="mostrarDetalle('Delivery de herramientas')">Ver más</button>
+        <button onclick="location.href='#proveedores'">Ver Proveedor</button>
+      </div>
 
-        <div class="servicio">
-          <img src="img/instalacion.jpg" alt="Instalación de productos">
-          <h3>Instalación de productos</h3>
-          <p>Instalación de puertas, ventanas, estanterías y más.</p>
-          <button onclick="mostrarDetalle('Instalación de productos')">Ver más</button>
-        </div>
+      <div class="servicio">
+        <img src="img/instalacion.jpg" alt="Instalación productos">
+        <h3>Instalación de productos</h3>
+        <p>Puertas, ventanas y estanterías.</p>
+        <button onclick="mostrarDetalle('Instalación de productos')">Ver más</button>
+        <button onclick="location.href='#proveedores'">Ver Proveedor</button>
+      </div>
 
-        <div class="servicio">
-          <img src="img/alquiler.jpg" alt="Alquiler de herramientas o maquinaria">
-          <h3>Alquiler de herramientas o maquinaria</h3>
-          <p>Mezcladoras, escaleras, taladros industriales, etc.</p>
-          <button onclick="mostrarDetalle('Alquiler de herramientas o maquinaria')">Ver más</button>
-        </div>
+      <div class="servicio">
+        <img src="img/alquiler.jpg" alt="Alquiler">
+        <h3>Alquiler de herramientas o maquinaria</h3>
+        <p>Taladros, mezcladoras, escaleras y más.</p>
+        <button onclick="mostrarDetalle('Alquiler de herramientas o maquinaria')">Ver más</button>
+        <button onclick="location.href='#proveedores'">Ver Proveedor</button>
       </div>
     </div>
-  </main>
 
-  <!-- Modal: Pantalla emergente para ver detalles del servicio -->
-  <div id="modal">
-    <div id="modal-content">
-      <button class="close" onclick="cerrarModal()">✖</button>
-      <h2 id="titulo-servicio">Detalle del servicio</h2>
-      <p><strong>Horario:</strong> Lunes a Sábado de 8:00 a.m. a 6:00 p.m.</p>
-      <p><strong>Ofrecemos:</strong> Instalaciones eléctricas residenciales, mantenimiento y reparación eléctrica, ampliación de capacidad eléctrica, instalación de sistemas de puesta a tierra, instalación de luminarias y tomacorrientes.</p>
-      <p><strong>Contamos con:</strong> Técnico electricista, Ing. electricista, Ing. electromecánico, técnico en automatización, supervisor de obras eléctricas. Contáctanos para más información.</p>
-      <a href="registro.html">Adquirir Servicio</a>
+    <!-- Modal -->
+    <div id="modal">
+      <div id="modal-content">
+        <button class="close" onclick="cerrarModal()">✖</button>
+        <h2 id="titulo-servicio">Detalle del servicio</h2>
+        <p><strong>Horario:</strong> Lunes a Sábado de 8:00 a.m. a 6:00 p.m.</p>
+        <p><strong>Ofrecemos:</strong> Servicios especializados según el tipo de trabajo seleccionado.</p>
+        <p><strong>Contamos con:</strong> Personal calificado y especializado. Contáctanos para más información.</p>
+        <a href="registro.html">Adquirir Servicio</a>
+      </div>
     </div>
-  </div>
+
+    <!-- Encuesta -->
+    <div class="encuesta">
+      <h2>¿Cuál de nuestros servicios has utilizado o utilizarías?</h2>
+      <select id="opciones">
+        <option value="Instalación Eléctrica">Instalación Eléctrica</option>
+        <option value="Reparaciones de Plomería">Reparaciones de Plomería</option>
+        <option value="Mantenimiento de Herramientas">Mantenimiento de Herramientas</option>
+        <option value="Delivery de herramientas">Delivery de herramientas</option>
+        <option value="Instalación de productos">Instalación de productos</option>
+        <option value="Alquiler de herramientas o maquinaria">Alquiler de herramientas o maquinaria</option>
+      </select>
+      <br>
+      <button onclick="votar()">Votar</button>
+
+      <canvas id="grafico" width="600" height="300"></canvas>
+    </div>
+
+    <!-- Datos del proveedor -->
+    <section id="proveedores">
+      <h2>Datos del Proveedor</h2>
+      <p><strong>Nombre de la empresa:</strong> Servicios Integrales SAC</p>
+      <p><strong>Dirección:</strong> Av. La Industria 456, Lima, Perú</p>
+      <p><strong>Teléfono:</strong> +51 999 888 777</p>
+      <p><strong>Email:</strong> contacto@serviciosintegrales.pe</p>
+      <p><strong>Representante:</strong> Ing. Juan Pérez</p>
+    </section>
+  </main>
 
   <footer>
     <p>&copy; 2025 Ferre Corp. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- Script para controlar la apertura y cierre del modal -->
   <script>
     function mostrarDetalle(servicio) {
-      // Cambia el título del modal con el nombre del servicio
       document.getElementById("titulo-servicio").innerText = "Detalle del servicio: " + servicio;
       document.getElementById("modal").style.display = "block";
     }
 
     function cerrarModal() {
-      // Oculta el modal
       document.getElementById("modal").style.display = "none";
     }
-    document.addEventListener("DOMContentLoaded", () => {
-      const serviciosGuardados = JSON.parse(localStorage.getItem("servicios") || "[]");
-      const contenedor = document.querySelector(".servicios");
 
-      serviciosGuardados.forEach((servicio, index) => {
-        const div = document.createElement("div");
-        div.className = "servicio";
-        div.innerHTML = `
-          <img src="img/${servicio.imagen}" alt="Servicio ${index + 1}">
-          <h3>Servicio ${index + 1}</h3>
-          <p>${servicio.descripcion}</p>
-          <button onclick="mostrarDetalle('Servicio ${index + 1}')">Ver más</button>
-        `;
-        contenedor.appendChild(div);
-      });
+    const servicios = [
+      "Instalación Eléctrica",
+      "Reparaciones de Plomería",
+      "Mantenimiento de Herramientas",
+      "Delivery de herramientas",
+      "Instalación de productos",
+      "Alquiler de herramientas o maquinaria"
+    ];
+
+    let votos = JSON.parse(localStorage.getItem("votos")) || servicios.reduce((acc, s) => (acc[s] = 0, acc), {});
+
+    function votar() {
+      const servicio = document.getElementById("opciones").value;
+      votos[servicio]++;
+      localStorage.setItem("votos", JSON.stringify(votos));
+      actualizarGrafico();
+      Swal.fire('¡Gracias por tu voto!', `Has votado por: ${servicio}`, 'success');
+    }
+
+    const ctx = document.getElementById('grafico').getContext('2d');
+    const grafico = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: servicios,
+        datasets: [{
+          label: 'Votos por servicio',
+          data: servicios.map(s => votos[s]),
+          backgroundColor: '#ff6f00'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            stepSize: 1
+          }
+        }
+      }
     });
+
+    function actualizarGrafico() {
+      grafico.data.datasets[0].data = servicios.map(s => votos[s]);
+      grafico.update();
+    }
+
+    window.onload = actualizarGrafico;
   </script>
 </body>
 </html>
