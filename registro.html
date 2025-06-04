@@ -71,7 +71,6 @@
         <option value="emprendedor">Emprendimiento</option>
       </select>
 
-      <!-- Formulario para Usuarios -->
       <form id="form-usuario" class="hidden">
         <h3>Registro de Usuario</h3>
         <label>Nombre:</label>
@@ -83,7 +82,6 @@
         <button type="submit">Registrar Usuario</button>
       </form>
 
-      <!-- Formulario de Registro de Emprendedor -->
       <form id="form-emprendedor" class="hidden">
         <h3>Registro de Emprendimiento</h3>
         <label>Nombre del Negocio:</label>
@@ -95,26 +93,26 @@
         <button type="submit">Registrar Emprendimiento</button>
       </form>
 
-      <!-- Funciones disponibles tras registro como emprendedor -->
       <div id="panel-emprendedor" class="hidden">
         <h3>Panel de Emprendedor</h3>
 
-        <!-- Subir Producto -->
         <form id="form-producto">
           <h4>Subir Producto</h4>
-          <input type="text" id="nombreProducto" placeholder="Nombre del producto">
-          <input type="number" id="precioProducto" placeholder="Precio">
+          <input type="text" id="nombreProducto" placeholder="Nombre del producto" required>
+          <input type="number" id="precioProducto" placeholder="Precio" required>
+          <input type="text" id="empresaProducto" placeholder="Nombre de la empresa" required>
+          <input type="text" id="contactoProducto" placeholder="Contacto de la empresa" required>
+          <input type="number" id="unidadesProducto" placeholder="Unidades deseadas" required>
+          <select id="categoriaProducto" required>
+            <option value="guantes">Guantes</option>
+            <option value="cascos">Cascos</option>
+            <option value="chalecos">Chalecos</option>
+            <option value="botas">Botas</option>
+            <option value="otros">Otros</option>
+          </select>
           <textarea id="descripcionProducto" placeholder="Descripción"></textarea>
           <input type="file" id="imagenProducto">
           <button type="submit">Guardar Producto</button>
-        </form>
-
-        <!-- Subir Servicio -->
-        <form id="form-servicio">
-          <h4>Subir Servicio</h4>
-          <textarea id="descripcionServicio" placeholder="Descripción del servicio"></textarea>
-          <input type="file" id="imagenServicio">
-          <button type="submit">Guardar Servicio</button>
         </form>
       </div>
     </div>
@@ -152,17 +150,14 @@
 
       formEmprendedor.addEventListener("submit", e => {
         e.preventDefault();
-        const negocio = document.getElementById("nombreNegocio").value;
-        const correo = document.getElementById("correoNegocio").value;
-        const contrasena = document.getElementById("contrasenaNegocio").value;
         const emprendimiento = {
           tipo: "emprendedor",
-          negocio,
-          correo,
-          contrasena
+          negocio: document.getElementById("nombreNegocio").value,
+          correo: document.getElementById("correoNegocio").value,
+          contrasena: document.getElementById("contrasenaNegocio").value
         };
         localStorage.setItem("emprendimientoRegistrado", JSON.stringify(emprendimiento));
-        alert("Emprendimiento registrado. Puedes comenzar a subir productos y servicios.");
+        alert("Emprendimiento registrado.");
         formEmprendedor.classList.add("hidden");
         panelEmprendedor.classList.remove("hidden");
       });
@@ -170,33 +165,22 @@
       document.getElementById("form-producto").addEventListener("submit", e => {
         e.preventDefault();
         const producto = {
-        nombre: document.getElementById("nombreProducto").value,
-        precio: parseFloat(document.getElementById("precioProducto").value),
-        descripcion: document.getElementById("descripcionProducto").value,
-        imagen: document.getElementById("imagenProducto").files[0]?.name || "placeholder.jpg"
+          nombre: document.getElementById("nombreProducto").value,
+          precio: parseFloat(document.getElementById("precioProducto").value),
+          categoria: document.getElementById("categoriaProducto").value,
+          empresa: document.getElementById("empresaProducto").value,
+          contacto: document.getElementById("contactoProducto").value,
+          unidades: parseInt(document.getElementById("unidadesProducto").value),
+          descripcion: document.getElementById("descripcionProducto").value,
+          imagen: document.getElementById("imagenProducto").files[0]?.name || "placeholder.jpg"
         };
 
-        // obtener productos actuales
         const productos = JSON.parse(localStorage.getItem("productos") || "[]");
         productos.push(producto);
         localStorage.setItem("productos", JSON.stringify(productos));
-        alert("Producto guardado localmente.");
+        alert("Producto guardado.");
         e.target.reset();
-      });
-
-      document.getElementById("form-servicio").addEventListener("submit", e => {
-        e.preventDefault();
-        const servicio = {
-          descripcion: document.getElementById("descripcionServicio").value,
-          imagen: document.getElementById("imagenServicio").files[0]?.name || "placeholder.jpg"
-        };
-
-        const servicios = JSON.parse(localStorage.getItem("servicios") || "[]");
-        servicios.push(servicio);
-        localStorage.setItem("servicios", JSON.stringify(servicios));
-
-        alert("Servicio guardado localmente.");
-        e.target.reset();
+        location.href = "productos.html"; // redirigir para ver el nuevo producto
       });
     </script>
   </main>

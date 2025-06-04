@@ -50,7 +50,49 @@ document.getElementById("form-contacto").addEventListener("submit", function (e)
     contenedorServicios.appendChild(card);
   });
 
+
+const filtroCategoria = document.getElementById("filtro-categoria");
+
+filtroCategoria.addEventListener("change", () => {
+  const categoria = filtroCategoria.value;
+  document.querySelectorAll(".producto").forEach(producto => {
+    const cat = producto.getAttribute("data-categoria");
+    if (categoria === "todos" || cat === categoria) {
+      producto.style.display = "block";
+    } else {
+      producto.style.display = "none";
+    }
+  });
+});
+
+
+// Mostrar detalle al seleccionar producto
+botones.forEach(boton => {
+  boton.addEventListener("click", () => {
+    const producto = boton.closest(".producto");
+    document.getElementById("detalle-producto").style.display = "block";
+    document.getElementById("det-nombre").textContent = producto.getAttribute("data-nombre");
+    document.getElementById("det-descripcion").textContent = producto.querySelector("p").textContent;
+  });
+});
+
 /////////////
+
+const nuevoProducto = {
+  nombre: nombreInput.value,
+  precio: parseFloat(precioInput.value),
+  categoria: categoriaSelect.value, // ← aquí
+  empresa: empresaInput.value,
+  descripcion: descripcionInput.value,
+  contacto: contactoInput.value,
+  imagen: imagenInput.value
+};
+
+
+div.className = "producto";
+div.setAttribute("data-nombre", producto.nombre);
+div.setAttribute("data-precio", producto.precio);
+div.setAttribute("data-categoria", producto.categoria); // ← importante
 
   
   
