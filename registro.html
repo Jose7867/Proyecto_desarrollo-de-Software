@@ -5,20 +5,21 @@
   <title>Registro - Ferre Corp</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-.form-wrapper {
-  max-width: 600px;
-  margin: auto;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
+    .form-wrapper {
+      max-width: 900px;
+      margin: auto;
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
 
-h2 {
-  text-align: center;
-  color: #007bff;
-}
-button {
+    h2, h3 {
+      text-align: center;
+      color: #007bff;
+    }
+
+    button {
       margin-top: 1rem;
       padding: 0.5rem 1rem;
       background-color: #28a745;
@@ -27,9 +28,20 @@ button {
       border-radius: 5px;
       cursor: pointer;
     }
-button:hover {
-  background-color: #218838;
-}
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    label, input, select, textarea {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -39,7 +51,7 @@ button:hover {
       <nav>
         <ul>
           <li><a href="index.html">Inicio</a></li>
-          <li><a href="registro.html">Registro</a></li>
+          <li><a href="registro.html" class="active">Registro</a></li>
           <li><a href="productos.html">Productos</a></li>
           <li><a href="servicios.html">Servicios</a></li>
           <li><a href="nosotros.html">Nosotros</a></li>
@@ -51,84 +63,142 @@ button:hover {
 
   <main>
     <div class="form-wrapper">
-      <h2>Registro de Usuario</h2>
-      <form id="form-registro">
-        <label>Nombre</label>
-        <input type="text" name="nombre" required>
+      <h2>Registro</h2>
 
-        <label>Correo Electronico</label>
-        <input type ="email" name="correo" required>
+      <label for="tipoCuenta">Tipo de cuenta:</label>
+      <select id="tipoCuenta">
+        <option value="usuario">Usuario</option>
+        <option value="emprendedor">Emprendimiento</option>
+      </select>
 
-        <label>Contraseña</label>
-        <input type="password" name="contraseña" required>
-
-        <button type="submit">Registrar</button>
+      <!-- Formulario para Usuarios -->
+      <form id="form-usuario" class="hidden">
+        <h3>Registro de Usuario</h3>
+        <label>Nombre:</label>
+        <input type="text" id="nombreUsuario" required>
+        <label>Correo:</label>
+        <input type="email" id="correoUsuario" required>
+        <label>Contraseña:</label>
+        <input type="password" id="contrasenaUsuario" required>
+        <button type="submit">Registrar Usuario</button>
       </form>
-        <ul id="lista-recientes"></ul>
-        <button id="confirmar-compra">Confirmar Compra</button>
+
+      <!-- Formulario de Registro de Emprendedor -->
+      <form id="form-emprendedor" class="hidden">
+        <h3>Registro de Emprendimiento</h3>
+        <label>Nombre del Negocio:</label>
+        <input type="text" id="nombreNegocio" required>
+        <label>Correo:</label>
+        <input type="email" id="correoNegocio" required>
+        <label>Contraseña:</label>
+        <input type="password" id="contrasenaNegocio" required>
+        <button type="submit">Registrar Emprendimiento</button>
+      </form>
+
+      <!-- Funciones disponibles tras registro como emprendedor -->
+      <div id="panel-emprendedor" class="hidden">
+        <h3>Panel de Emprendedor</h3>
+
+        <!-- Subir Producto -->
+        <form id="form-producto">
+          <h4>Subir Producto</h4>
+          <input type="text" id="nombreProducto" placeholder="Nombre del producto">
+          <input type="number" id="precioProducto" placeholder="Precio">
+          <textarea id="descripcionProducto" placeholder="Descripción"></textarea>
+          <input type="file" id="imagenProducto">
+          <button type="submit">Guardar Producto</button>
+        </form>
+
+        <!-- Subir Servicio -->
+        <form id="form-servicio">
+          <h4>Subir Servicio</h4>
+          <textarea id="descripcionServicio" placeholder="Descripción del servicio"></textarea>
+          <input type="file" id="imagenServicio">
+          <button type="submit">Guardar Servicio</button>
+        </form>
+      </div>
     </div>
-    <!-- Script que maneja el registro y lista -->
+
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("form-registro");
-        const listaRecientes = document.getElementById("lista-recientes");
-        const btnConfirmar = document.getElementById("confirmar-compra");
-        let carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
-    
-        // Mostrar productos del carrito si existen
-        if (carrito.length) {
-          listaRecientes.innerHTML = carrito.map(p => `<li>${p.nombre} (x${p.cantidad})</li>`).join("");
-        }
-    
-        // Mostrar u ocultar botón al cargar
-        const registrado = localStorage.getItem("usuarioRegistrado") === "true";
-        if (carrito.length === 0 || !registrado) {
-          btnConfirmar.style.display = "none";
+      const tipoCuenta = document.getElementById("tipoCuenta");
+      const formUsuario = document.getElementById("form-usuario");
+      const formEmprendedor = document.getElementById("form-emprendedor");
+      const panelEmprendedor = document.getElementById("panel-emprendedor");
+
+      tipoCuenta.addEventListener("change", () => {
+        if (tipoCuenta.value === "usuario") {
+          formUsuario.classList.remove("hidden");
+          formEmprendedor.classList.add("hidden");
+          panelEmprendedor.classList.add("hidden");
         } else {
-          btnConfirmar.style.display = "inline-block";
+          formUsuario.classList.add("hidden");
+          formEmprendedor.classList.remove("hidden");
+          panelEmprendedor.classList.add("hidden");
         }
-    
-        // Evento para confirmar compra
-        if (btnConfirmar) {
-          btnConfirmar.addEventListener("click", () => {
-            const registrado = localStorage.getItem("usuarioRegistrado") === "true";
-            carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
-    
-            if (!registrado) {
-              alert("Debe registrarse antes de confirmar la compra.");
-              return;
-            }
-            if (carrito.length) {
-              alert("¡Gracias por la compra!");
-              localStorage.removeItem("carrito");
-              localStorage.removeItem("usuarioRegistrado");
-              listaRecientes.innerHTML = "<li>No hay productos seleccionados.</li>";
-              btnConfirmar.style.display = "none";
-            } else {
-              alert("No hay productos para comprar.");
-            }
-          });
-        }
-    
-        // Evento para registro de usuario
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-    
-          // Marcar usuario como registrado
-          localStorage.setItem("usuarioRegistrado", "true");
-    
-          alert("Usuario registrado correctamente.");
-          form.reset();
-    
-          // Actualizar visibilidad del botón tras registro
-          carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
-          if (carrito.length > 0) {
-            btnConfirmar.style.display = "inline-block";
-          }
-        });
+      });
+
+      formUsuario.addEventListener("submit", e => {
+        e.preventDefault();
+        const usuario = {
+          tipo: "usuario",
+          nombre: document.getElementById("nombreUsuario").value,
+          correo: document.getElementById("correoUsuario").value,
+          contrasena: document.getElementById("contrasenaUsuario").value
+        };
+        localStorage.setItem("usuarioRegistrado", JSON.stringify(usuario));
+        alert("Usuario registrado exitosamente.");
+        formUsuario.reset();
+      });
+
+      formEmprendedor.addEventListener("submit", e => {
+        e.preventDefault();
+        const negocio = document.getElementById("nombreNegocio").value;
+        const correo = document.getElementById("correoNegocio").value;
+        const contrasena = document.getElementById("contrasenaNegocio").value;
+        const emprendimiento = {
+          tipo: "emprendedor",
+          negocio,
+          correo,
+          contrasena
+        };
+        localStorage.setItem("emprendimientoRegistrado", JSON.stringify(emprendimiento));
+        alert("Emprendimiento registrado. Puedes comenzar a subir productos y servicios.");
+        formEmprendedor.classList.add("hidden");
+        panelEmprendedor.classList.remove("hidden");
+      });
+
+      document.getElementById("form-producto").addEventListener("submit", e => {
+        e.preventDefault();
+        const producto = {
+        nombre: document.getElementById("nombreProducto").value,
+        precio: parseFloat(document.getElementById("precioProducto").value),
+        descripcion: document.getElementById("descripcionProducto").value,
+        imagen: document.getElementById("imagenProducto").files[0]?.name || "placeholder.jpg"
+        };
+
+        // obtener productos actuales
+        const productos = JSON.parse(localStorage.getItem("productos") || "[]");
+        productos.push(producto);
+        localStorage.setItem("productos", JSON.stringify(productos));
+        alert("Producto guardado localmente.");
+        e.target.reset();
+      });
+
+      document.getElementById("form-servicio").addEventListener("submit", e => {
+        e.preventDefault();
+        const servicio = {
+          descripcion: document.getElementById("descripcionServicio").value,
+          imagen: document.getElementById("imagenServicio").files[0]?.name || "placeholder.jpg"
+        };
+
+        const servicios = JSON.parse(localStorage.getItem("servicios") || "[]");
+        servicios.push(servicio);
+        localStorage.setItem("servicios", JSON.stringify(servicios));
+
+        alert("Servicio guardado localmente.");
+        e.target.reset();
       });
     </script>
   </main>
 </body>
 </html>
-

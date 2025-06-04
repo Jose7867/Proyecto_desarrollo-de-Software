@@ -210,6 +210,22 @@
       // Oculta el modal
       document.getElementById("modal").style.display = "none";
     }
+    document.addEventListener("DOMContentLoaded", () => {
+      const serviciosGuardados = JSON.parse(localStorage.getItem("servicios") || "[]");
+      const contenedor = document.querySelector(".servicios");
+
+      serviciosGuardados.forEach((servicio, index) => {
+        const div = document.createElement("div");
+        div.className = "servicio";
+        div.innerHTML = `
+          <img src="img/${servicio.imagen}" alt="Servicio ${index + 1}">
+          <h3>Servicio ${index + 1}</h3>
+          <p>${servicio.descripcion}</p>
+          <button onclick="mostrarDetalle('Servicio ${index + 1}')">Ver más</button>
+        `;
+        contenedor.appendChild(div);
+      });
+    });
   </script>
 </body>
 </html>

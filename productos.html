@@ -94,7 +94,7 @@
   <main class="section">
     
     <div class="contenedor-productos">
-      <div class="productos">
+      <div class="productos" id="productos-estaticos">
         <div class="producto" data-nombre="Bota Liviana" data-precio="25.00">
           <img src="img/bota.jpg" alt="Bota">
           <h3>Bota Liviana</h3>
@@ -140,7 +140,24 @@
       const botones = document.querySelectorAll(".seleccionar-btn");
       const lista = document.getElementById("seleccion-reciente");
       const btnComprar = document.getElementById("btn-comprar");
-  
+      const contenedor = document.getElementById("productos-estaticos");
+      // cargar productos
+      const productosGuardados = JSON.parse(localStorage.getItem("productos") || "[]");
+      productosGuardados.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "producto";
+        div.setAttribute("data-nombre", p.nombre);
+        div.setAttribute("data-precio", p.precio);
+        div.innerHTML = `
+          <img src="img/${p.imagen}" alt="${p.nombre}">
+          <h3>${p.nombre}</h3>
+          <p>${p.descripcion}</p>
+          <p><strong>S/ ${parseFloat(p.precio).toFixed(2)}</strong></p>
+          <button class="seleccionar-btn">Seleccionar</button>
+        `;
+        contenedor.appendChild(div);
+      });
+
       function renderLista() {
         lista.innerHTML = "";
         seleccionados.forEach((p, index) => {
@@ -161,8 +178,8 @@
         });
       }
   
-      botones.forEach(boton => {
-        boton.addEventListener("click", () => {
+      document.querySelector(".productos").addEventListener("click", e => {
+        if (e.target.classList.contains("seleccionar-btn")) {
           const producto = boton.closest(".producto");
           const nombre = producto.getAttribute("data-nombre");
           const precio = parseFloat(producto.getAttribute("data-precio"));
@@ -181,7 +198,7 @@
           }
   
           renderLista();
-        });
+        }
       });
   
       btnComprar.addEventListener("click", () => {
