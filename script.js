@@ -1,98 +1,92 @@
-document.getElementById("form-contacto").addEventListener("submit", function (e) {
-    e.preventDefault();
-    alert("Gracias por contactarnos.");
-  });
-    
-  const contenedorProductos = document.querySelector('.productos');
-  
-  productos.forEach(producto => {
-    const card = document.createElement('div');
-    card.classList.add('producto-card');
-    
-    card.innerHTML = `
-      <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img">
-      <h3>${producto.nombre}</h3>
-      <p class="descripcion">${producto.descripcion}</p>
-      <p class="precio">${producto.precio}</p>
-      <button class="btn-agregar">Más Información</button>
-    `;
-    
-    contenedorProductos.appendChild(card);
-  });
-  
-  const servicios = [
-    {
-      nombre: 'Instalación de Plomería',
-      descripcion: 'Servicios profesionales de instalación y reparación de sistemas de plomería.',
-      imagen: 'servicio1.jpg',
-    },
-    {
-      nombre: 'Asesoría en Construcción',
-      descripcion: 'Asesoría experta en proyectos de construcción y renovación de espacios.',
-      imagen: 'servicio2.jpg',
-    },
-    // Añadir más servicios
-  ];
-  
-  const contenedorServicios = document.querySelector('.servicios');
-  
-  servicios.forEach(servicio => {
-    const card = document.createElement('div');
-    card.classList.add('servicio-card');
-    
-    card.innerHTML = `
-      <img src="${servicio.imagen}" alt="${servicio.nombre}" class="servicio-img">
-      <h3>${servicio.nombre}</h3>
-      <p class="descripcion">${servicio.descripcion}</p>
-      <button class="btn-agregar">Más Información</button>
-    `;
-    
-    contenedorServicios.appendChild(card);
-  });
 
+  /*---------------------desplazamiento-----------------*/
+  //Ejecutando funciones
+document.getElementById("btn__iniciar-sesion").addEventListener("click", iniciarSesion);
+document.getElementById("btn__registrarse").addEventListener("click", register);
+window.addEventListener("resize", anchoPage);
 
-const filtroCategoria = document.getElementById("filtro-categoria");
+//Declarando variables
+var formulario_login = document.querySelector(".formulario__login");
+var formulario_register = document.querySelector(".formulario__register");
+var contenedor_login_register = document.querySelector(".contenedor__login-register");
+var caja_trasera_login = document.querySelector(".caja__trasera-login");
+var caja_trasera_register = document.querySelector(".caja__trasera-register");
 
-filtroCategoria.addEventListener("change", () => {
-  const categoria = filtroCategoria.value;
-  document.querySelectorAll(".producto").forEach(producto => {
-    const cat = producto.getAttribute("data-categoria");
-    if (categoria === "todos" || cat === categoria) {
-      producto.style.display = "block";
-    } else {
-      producto.style.display = "none";
+    //FUNCIONES
+
+function anchoPage(){
+
+    if (window.innerWidth > 850){
+        caja_trasera_register.style.display = "block";
+        caja_trasera_login.style.display = "block";
+    }else{
+        caja_trasera_register.style.display = "block";
+        caja_trasera_register.style.opacity = "1";
+        caja_trasera_login.style.display = "none";
+        formulario_login.style.display = "block";
+        contenedor_login_register.style.left = "0px";
+        formulario_register.style.display = "none";   
     }
+}
+
+anchoPage();
+
+function iniciarSesion(){
+        if (window.innerWidth > 850){
+            formulario_login.style.display = "block";
+            contenedor_login_register.style.left = "10px";
+            formulario_register.style.display = "none";
+            caja_trasera_register.style.opacity = "1";
+            caja_trasera_login.style.opacity = "0";
+        }else{
+            formulario_login.style.display = "block";
+            contenedor_login_register.style.left = "0px";
+            formulario_register.style.display = "none";
+            caja_trasera_register.style.display = "block";
+            caja_trasera_login.style.display = "none";
+        }
+    }
+
+function register(){
+        if (window.innerWidth > 850){
+            formulario_register.style.display = "block";
+            contenedor_login_register.style.left = "410px";
+            formulario_login.style.display = "none";
+            caja_trasera_register.style.opacity = "0";
+            caja_trasera_login.style.opacity = "1";
+        }else{
+            formulario_register.style.display = "block";
+            contenedor_login_register.style.left = "0px";
+            formulario_login.style.display = "none";
+            caja_trasera_register.style.display = "none";
+            caja_trasera_login.style.display = "block";
+            caja_trasera_login.style.opacity = "1";
+        }
+}
+
+
+const formProducto = document.getElementById("form-producto");
+
+if (formProducto) {
+  formProducto.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const producto = {
+      nombre: document.getElementById("nombreProducto").value,
+      precio: parseFloat(document.getElementById("precioProducto").value),
+      categoria: document.getElementById("categoriaProducto").value,
+      empresa: document.getElementById("empresaProducto").value,
+      contacto: document.getElementById("contactoProducto").value,
+      unidades: parseInt(document.getElementById("unidadesProducto").value),
+      descripcion: document.getElementById("descripcionProducto").value,
+      imagen: document.getElementById("imagenProducto").files[0]?.name || "placeholder.jpg",
+    };
+
+    const productos = JSON.parse(localStorage.getItem("productos") || "[]");
+    productos.push(producto);
+    localStorage.setItem("productos", JSON.stringify(productos));
+    alert("Producto guardado.");
+    e.target.reset();
+    location.href = "productos.html";
   });
-});
-
-
-// Mostrar detalle al seleccionar producto
-botones.forEach(boton => {
-  boton.addEventListener("click", () => {
-    const producto = boton.closest(".producto");
-    document.getElementById("detalle-producto").style.display = "block";
-    document.getElementById("det-nombre").textContent = producto.getAttribute("data-nombre");
-    document.getElementById("det-descripcion").textContent = producto.querySelector("p").textContent;
-  });
-});
-
-/////////////
-
-const nuevoProducto = {
-  nombre: nombreInput.value,
-  precio: parseFloat(precioInput.value),
-  categoria: categoriaSelect.value, // ← aquí
-  empresa: empresaInput.value,
-  descripcion: descripcionInput.value,
-  contacto: contactoInput.value,
-  imagen: imagenInput.value
-};
-
-
-div.className = "producto";
-div.setAttribute("data-nombre", producto.nombre);
-div.setAttribute("data-precio", producto.precio);
-div.setAttribute("data-categoria", producto.categoria); // ← importante
-
-  
-  
+}
